@@ -18,7 +18,6 @@ public class SimpleJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        System.err.println("-----");
         log.info("Hello, {} - {}.", Instant.now().toEpochMilli(), Thread.currentThread().getName());
     }
 }

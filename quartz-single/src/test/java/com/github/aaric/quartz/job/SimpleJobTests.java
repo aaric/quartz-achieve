@@ -32,6 +32,7 @@ public class SimpleJobTests {
                 .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
                 .build();
         scheduler.scheduleJob(jobDetail, trigger);
+        scheduler.start();
 
         log.info("job start...");
 
