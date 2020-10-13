@@ -4,7 +4,6 @@ build/
 *.iml
 *.log
 *.log.gz
-*.log.*.gz
 application-*.yml
 bootstrap-*.yml
 .DS_Store
