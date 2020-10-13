@@ -25,11 +25,11 @@ public class SimpleJobTests {
         Scheduler scheduler = factory.getScheduler();
         JobDetail jobDetail = JobBuilder.newJob(SimpleJob.class)
                 .withDescription("Simple Job")
-                .withIdentity("defaultJob", "defaultGroup")
+                .withIdentity("defaultJob", Scheduler.DEFAULT_GROUP)
                 .build();
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withDescription("Simple Job Trigger")
-                .withIdentity("defaultTrigger", "defaultGroup")
+                .withIdentity("defaultTrigger", Scheduler.DEFAULT_GROUP)
                 .startAt(new Date())
                 .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
                 .build();
