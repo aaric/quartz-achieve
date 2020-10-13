@@ -19,7 +19,7 @@ public class QuartzRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        SchedulerFactory factory = new StdSchedulerFactory();
+        SchedulerFactory factory = new StdSchedulerFactory("quartz.properties");
         Scheduler scheduler = factory.getScheduler();
         scheduler.start();
     }
