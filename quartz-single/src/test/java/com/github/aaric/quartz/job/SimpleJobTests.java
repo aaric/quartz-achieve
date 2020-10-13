@@ -1,6 +1,7 @@
 package com.github.aaric.quartz.job;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class SimpleJobTests {
 
     @Test
+    @Disabled
     public void testExecute() throws Exception {
         SchedulerFactory factory = new StdSchedulerFactory();
         Scheduler scheduler = factory.getScheduler();
