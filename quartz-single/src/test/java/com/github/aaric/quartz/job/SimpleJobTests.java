@@ -36,10 +36,13 @@ public class SimpleJobTests {
 
         SchedulerFactory factory = new StdSchedulerFactory();
         Scheduler scheduler = factory.getScheduler();
-        scheduler.scheduleJob(jobDetail, trigger);
         scheduler.start();
 
         log.info("job start...");
+
+        TimeUnit.SECONDS.sleep(5);
+
+        scheduler.scheduleJob(jobDetail, trigger);
 
         TimeUnit.SECONDS.sleep(10);
 
