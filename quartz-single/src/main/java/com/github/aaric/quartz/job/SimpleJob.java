@@ -1,10 +1,7 @@
 package com.github.aaric.quartz.job;
 
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.quartz.*;
 
 import java.time.Instant;
 
@@ -15,6 +12,7 @@ import java.time.Instant;
  * @version 0.1.0-SNAPSHOT
  */
 @Slf4j
+@DisallowConcurrentExecution
 public class SimpleJob implements Job {
 
     @Override
