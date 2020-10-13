@@ -1,0 +1,38 @@
+# Tomcat settings
+server:
+  port: ${UNDERTOW_SERVER_PORT:8080}
+  undertow:
+    io-threads: 1
+    worker-threads: 8
+    buffer-size: 1024
+
+# Management settings
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# Logging settings
+logging:
+  level:
+    root: WARN
+    org:
+      springframework:
+        security: INFO
+        web: ERROR
+      hibernate: INFO
+    com:
+      github: DEBUG
+  file:
+    path: ${LOGGING_FILE_PATH:./}
+    name: output.log
+    max-size: ${LOGGING_FILE_MAX_SIZE:20MB}
+    max-history: ${LOGGING_FILE_MAX_HISTORY:100}
+
+# Spring settings
+spring:
+  profiles:
+    active: dev
+  application:
+    name: quartz-single
