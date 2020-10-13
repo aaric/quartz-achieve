@@ -26,6 +26,7 @@ public class SimpleJobTests {
                 .withIdentity("defaultJob", Scheduler.DEFAULT_GROUP)
                 .usingJobData("id", 1L)
                 .usingJobData("name", "hello world")
+                .requestRecovery()
                 .build();
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withDescription("Simple Job Trigger")
