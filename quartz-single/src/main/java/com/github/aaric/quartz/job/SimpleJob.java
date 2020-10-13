@@ -2,6 +2,7 @@ package com.github.aaric.quartz.job;
 
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -18,6 +19,8 @@ public class SimpleJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        log.info("Hello, {} - {}.", Instant.now().toEpochMilli(), Thread.currentThread().getName());
+        JobDataMap jobDataMap = context.getMergedJobDataMap();
+        log.info("Hello, {} - {}. JobDataMap -> id: {}, name: {}", Instant.now().toEpochMilli(), Thread.currentThread().getName(),
+                jobDataMap.getLong("id"), jobDataMap.getString("name"));
     }
 }
