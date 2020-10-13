@@ -15,5 +15,5 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-quartz"
 
     implementation "mysql:mysql-connector-java"
-    implementation "com.alibaba:druid-spring-boot-starter"
+//    implementation "com.alibaba:druid-spring-boot-starter"
 }
