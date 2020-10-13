@@ -35,4 +35,4 @@ spring:
   profiles:
     active: dev
   application:
-    name: quartz-simple
+    name: quartz-cluster
