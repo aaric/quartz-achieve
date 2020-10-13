@@ -11,8 +11,9 @@ dependencies {
     implementation "io.springfox:springfox-swagger2"
     implementation "com.github.xiaoymin:knife4j-spring-boot-starter"
 
-    implementation "org.quartz-scheduler:quartz"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc"
+    implementation "org.springframework.boot:spring-boot-starter-quartz"
 
     implementation "mysql:mysql-connector-java"
-    implementation "com.mchange:c3p0"
+    implementation "com.alibaba:druid-spring-boot-starter"
 }
