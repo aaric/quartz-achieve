@@ -1,9 +1,7 @@
 package com.github.aaric.quartz.job;
 
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.quartz.*;
 
 import java.time.Instant;
 
@@ -14,10 +12,13 @@ import java.time.Instant;
  * @version 0.1.0-SNAPSHOT
  */
 @Slf4j
+@DisallowConcurrentExecution
 public class SimpleJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        log.info("Hello, {} - {}.", Instant.now().toEpochMilli(), Thread.currentThread().getName());
+        JobDataMap jobDataMap = context.getMergedJobDataMap();
+        log.info("Hello, {} - {}. JobDataMap -> id: {}, name: {}", Instant.now().toEpochMilli(), Thread.currentThread().getName(),
+                jobDataMap.getLong("id"), jobDataMap.getString("name"));
     }
 }

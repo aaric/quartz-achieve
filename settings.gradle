@@ -1,4 +1,4 @@
-include "quartz-single"
+include "quartz-simple"
 //include "quartz-cluster"
 
 rootProject.name = "quartz-achieve"

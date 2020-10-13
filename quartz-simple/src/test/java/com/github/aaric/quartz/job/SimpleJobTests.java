@@ -21,22 +21,29 @@ public class SimpleJobTests {
     @Test
     @Disabled
     public void testExecute() throws Exception {
-        SchedulerFactory factory = new StdSchedulerFactory();
-        Scheduler scheduler = factory.getScheduler();
         JobDetail jobDetail = JobBuilder.newJob(SimpleJob.class)
                 .withDescription("Simple Job")
-                .withIdentity("defaultJob", "defaultGroup")
+                .withIdentity("defaultJob", Scheduler.DEFAULT_GROUP)
+                .usingJobData("id", 1L)
+                .usingJobData("name", "hello world")
+                .requestRecovery()
                 .build();
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withDescription("Simple Job Trigger")
-                .withIdentity("defaultTrigger", "defaultGroup")
+                .withIdentity("defaultTrigger", Scheduler.DEFAULT_GROUP)
                 .startAt(new Date())
                 .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
                 .build();
-        scheduler.scheduleJob(jobDetail, trigger);
+
+        SchedulerFactory factory = new StdSchedulerFactory();
+        Scheduler scheduler = factory.getScheduler();
         scheduler.start();
 
         log.info("job start...");
+
+        TimeUnit.SECONDS.sleep(5);
+
+        scheduler.scheduleJob(jobDetail, trigger);
 
         TimeUnit.SECONDS.sleep(10);
 
