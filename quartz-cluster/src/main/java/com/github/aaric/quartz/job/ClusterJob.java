@@ -1,19 +1,21 @@
 package com.github.aaric.quartz.job;
 
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.*;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.time.Instant;
 
 /**
- * SimpleJob
+ * ClusterJob
  *
- * @author Aaric, created on 2020-10-13T09:31.
- * @version 0.1.0-SNAPSHOT
+ * @author Aaric, created on 2020-10-13T14:30.
+ * @version 0.2.0-SNAPSHOT
  */
 @Slf4j
-@DisallowConcurrentExecution
-public class SimpleJob implements Job {
+public class ClusterJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
