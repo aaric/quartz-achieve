@@ -1,4 +1,4 @@
-package com.github.aaric.quartz.job;
+package com.github.aaric.quartz.quartz.job;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;

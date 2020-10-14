@@ -16,4 +16,5 @@ dependencies {
 
     implementation "mysql:mysql-connector-java"
     implementation "com.zaxxer:HikariCP"
+    implementation "com.mchange:c3p0"
 }

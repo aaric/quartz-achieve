@@ -81,6 +81,7 @@ subprojects {
 
             dependency "mysql:mysql-connector-java:5.1.49"
             dependency "com.zaxxer:HikariCP:3.4.5"
+            dependency "com.mchange:c3p0:0.9.5.5"
         }
     }
 
