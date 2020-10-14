@@ -21,58 +21,63 @@ public interface QuartzApi {
      *
      * @param jobName 任务名称
      * @return
+     * @throws Exception
      */
     @ApiOperation("创建任务")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "jobName", type = "path", example = "clusterJob")
     )
-    Map<String, String> create(String jobName);
+    Map<String, Object> create(String jobName) throws Exception;
 
     /**
      * 暂停任务
      *
      * @param jobName 任务名称
      * @return
+     * @throws Exception
      */
     @ApiOperation("暂停任务")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "jobName", type = "path", example = "clusterJob")
     )
-    Map<String, String> pause(String jobName);
+    Map<String, Object> pause(String jobName) throws Exception;
 
     /**
      * 恢复任务
      *
      * @param jobName 任务名称
      * @return
+     * @throws Exception
      */
     @ApiOperation("恢复任务")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "jobName", type = "path", example = "clusterJob")
     )
-    Map<String, String> resume(String jobName);
+    Map<String, Object> resume(String jobName) throws Exception;
 
     /**
      * 删除任务
      *
      * @param jobName 任务名称
      * @return
+     * @throws Exception
      */
     @ApiOperation("删除任务")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "jobName", type = "path", example = "clusterJob")
     )
-    Map<String, String> remove(String jobName);
+    Map<String, Object> remove(String jobName) throws Exception;
 
     /**
      * 是否存在任务
      *
      * @param jobName 任务名称
      * @return
+     * @throws Exception
      */
     @ApiOperation("是否存在任务")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "jobName", type = "path", example = "clusterJob")
     )
-    Map<String, String> exists(String jobName);
+    Map<String, Object> exists(String jobName) throws Exception;
 }

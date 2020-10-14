@@ -4,8 +4,6 @@ import com.github.aaric.quartz.quartz.job.ClusterJob;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -15,8 +13,8 @@ import java.util.Date;
  * @author Aaric, created on 2020-10-13T14:33.
  * @version 0.2.0-SNAPSHOT
  */
-@Order(1)
-@Component
+//@Order(1)
+//@Component
 public class QuartzRunner implements CommandLineRunner {
 
     @Autowired
