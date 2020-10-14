@@ -37,10 +37,12 @@ public class QuartzController implements QuartzApi {
                     .usingJobData("name", "hello world")
                     .requestRecovery()
                     .build();
+            long current = Instant.now().toEpochMilli();
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withDescription("Cluster Job Trigger")
                     .withIdentity(jobName, Scheduler.DEFAULT_GROUP)
-                    .startAt(new Date())
+                    .startAt(new Date(current))
+                    .endAt(new Date(current + 1000 * 60 * 30))
                     .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
                     .build();
             scheduler.scheduleJob(jobDetail, trigger);
