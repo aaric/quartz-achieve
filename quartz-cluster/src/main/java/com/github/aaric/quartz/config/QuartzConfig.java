@@ -1,8 +1,6 @@
 package com.github.aaric.quartz.config;
 
 import com.github.aaric.quartz.quartz.CustomJobFactory;
-import org.quartz.Scheduler;
-import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,13 +35,13 @@ public class QuartzConfig {
         return schedulerFactoryBean;
     }
 
-    @Bean
-    public QuartzInitializerListener quartzInitializerListener() {
-        return new QuartzInitializerListener();
-    }
-
-    @Bean
-    public Scheduler scheduler(SchedulerFactoryBean schedulerFactoryBean) throws IOException {
-        return schedulerFactoryBean.getScheduler();
-    }
+//    @Bean
+//    public QuartzInitializerListener quartzInitializerListener() {
+//        return new QuartzInitializerListener();
+//    }
+//
+//    @Bean
+//    public Scheduler scheduler(SchedulerFactoryBean schedulerFactoryBean) throws IOException {
+//        return schedulerFactoryBean.getScheduler();
+//    }
 }
