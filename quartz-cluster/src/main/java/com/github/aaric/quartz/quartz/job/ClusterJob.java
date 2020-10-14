@@ -20,7 +20,7 @@ public class ClusterJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         JobDataMap jobDataMap = context.getMergedJobDataMap();
-        log.info("SimpleJob, {} - {}. JobDataMap -> id: {}, name: {}", Instant.now().toEpochMilli(), Thread.currentThread().getName(),
+        log.info("ClusterJob, {} - {}. JobDataMap -> id: {}, name: {}", Instant.now().toEpochMilli(), Thread.currentThread().getName(),
                 jobDataMap.getLong("id"), jobDataMap.getString("name"));
     }
 }
