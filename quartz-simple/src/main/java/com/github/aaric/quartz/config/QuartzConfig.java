@@ -1,6 +1,6 @@
 package com.github.aaric.quartz.config;
 
-import com.github.aaric.quartz.job.SimpleJob;
+import com.github.aaric.quartz.quartz.job.SimpleJob;
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

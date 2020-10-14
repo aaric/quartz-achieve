@@ -76,9 +76,11 @@ subprojects {
             dependency "com.github.xiaoymin:knife4j-spring-boot-starter:2.0.4"
 
             // quartz-2.3.0-distribution.tar.gz\quartz-2.3.0-SNAPSHOT\src\org\quartz\impl\jdbcjobstore
-            dependency "org.quartz-scheduler:quartz:2.3.2"
+//            dependency "org.quartz-scheduler:quartz:2.3.2"
+//            dependency "org.quartz-scheduler:quartz-jobs:2.3.2"
 
             dependency "mysql:mysql-connector-java:5.1.49"
+            dependency "com.zaxxer:HikariCP:3.4.5"
             dependency "com.mchange:c3p0:0.9.5.5"
         }
     }

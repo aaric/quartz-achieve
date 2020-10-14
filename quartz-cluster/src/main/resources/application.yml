@@ -36,3 +36,18 @@ spring:
     active: dev
   application:
     name: quartz-cluster
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/testdb?useSSL=false&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull
+    username: testdb
+    password: testdb
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
