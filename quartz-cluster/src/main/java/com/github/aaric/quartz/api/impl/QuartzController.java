@@ -7,6 +7,7 @@ import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class QuartzController implements QuartzApi {
             JobDetail jobDetail = JobBuilder.newJob(ClusterJob.class)
                     .withDescription("Cluster Job")
                     .withIdentity(jobName, Scheduler.DEFAULT_GROUP)
-                    .usingJobData("id", 1L)
+                    .usingJobData("id", Instant.now().toEpochMilli())
                     .usingJobData("name", "hello world")
                     .requestRecovery()
                     .build();
