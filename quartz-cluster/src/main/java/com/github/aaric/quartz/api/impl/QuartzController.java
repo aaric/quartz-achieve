@@ -30,14 +30,14 @@ public class QuartzController implements QuartzApi {
     @GetMapping("/create/{jobName}")
     public Map<String, Object> create(@PathVariable String jobName) throws Exception {
         if (!checkExists(jobName)) {
+            long current = Instant.now().toEpochMilli();
             JobDetail jobDetail = JobBuilder.newJob(ClusterJob.class)
                     .withDescription("Cluster Job")
                     .withIdentity(jobName, Scheduler.DEFAULT_GROUP)
-                    .usingJobData("id", Instant.now().toEpochMilli())
+                    .usingJobData("id", current)
                     .usingJobData("name", "hello world")
                     .requestRecovery()
                     .build();
-            long current = Instant.now().toEpochMilli();
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withDescription("Cluster Job Trigger")
                     .withIdentity(jobName, Scheduler.DEFAULT_GROUP)
