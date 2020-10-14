@@ -4,6 +4,8 @@ import com.github.aaric.quartz.quartz.job.ClusterJob;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -13,8 +15,8 @@ import java.util.Date;
  * @author Aaric, created on 2020-10-13T14:33.
  * @version 0.2.0-SNAPSHOT
  */
-//@Order(1)
-//@Component
+@Order(1)
+@Component
 public class QuartzRunner implements CommandLineRunner {
 
     @Autowired
@@ -33,9 +35,13 @@ public class QuartzRunner implements CommandLineRunner {
                 .withDescription("Cluster Job Trigger")
                 .withIdentity("defaultTrigger", Scheduler.DEFAULT_GROUP)
                 .startAt(new Date())
-                .withSchedule(CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
                 .build();
 
-        scheduler.scheduleJob(jobDetail, trigger);
+        JobKey jobKey = JobKey.jobKey("defaultJob", Scheduler.DEFAULT_GROUP);
+        TriggerKey triggerKey = TriggerKey.triggerKey("defaultTrigger", Scheduler.DEFAULT_GROUP);
+        if (!(scheduler.checkExists(jobKey) || scheduler.checkExists(triggerKey))) {
+            scheduler.scheduleJob(jobDetail, trigger);
+        }
     }
 }
