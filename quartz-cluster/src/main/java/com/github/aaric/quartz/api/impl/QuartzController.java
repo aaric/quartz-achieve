@@ -28,9 +28,7 @@ public class QuartzController implements QuartzApi {
     @Override
     @GetMapping("/create/{jobName}")
     public Map<String, Object> create(@PathVariable String jobName) throws Exception {
-        JobKey jobKey = JobKey.jobKey(jobName, Scheduler.DEFAULT_GROUP);
-        TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
-        if (!(scheduler.checkExists(jobKey) || scheduler.checkExists(triggerKey))) {
+        if (!checkExists(jobName)) {
             JobDetail jobDetail = JobBuilder.newJob(ClusterJob.class)
                     .withDescription("Cluster Job")
                     .withIdentity(jobName, Scheduler.DEFAULT_GROUP)
@@ -54,9 +52,8 @@ public class QuartzController implements QuartzApi {
     @Override
     @PutMapping("/pause/{jobName}")
     public Map<String, Object> pause(@PathVariable String jobName) throws Exception {
-        JobKey jobKey = JobKey.jobKey(jobName, Scheduler.DEFAULT_GROUP);
-        TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
-        if (scheduler.checkExists(jobKey) || scheduler.checkExists(triggerKey)) {
+        if (checkExists(jobName)) {
+            TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
             scheduler.pauseTrigger(triggerKey);
 
             log.info("pause job: {}", jobName);
@@ -67,9 +64,8 @@ public class QuartzController implements QuartzApi {
     @Override
     @PutMapping("/resume/{jobName}")
     public Map<String, Object> resume(@PathVariable String jobName) throws Exception {
-        JobKey jobKey = JobKey.jobKey(jobName, Scheduler.DEFAULT_GROUP);
-        TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
-        if (scheduler.checkExists(jobKey) || scheduler.checkExists(triggerKey)) {
+        if (checkExists(jobName)) {
+            TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
             scheduler.resumeTrigger(triggerKey);
 
             log.info("resume job: {}", jobName);
@@ -80,9 +76,8 @@ public class QuartzController implements QuartzApi {
     @Override
     @DeleteMapping("/remove/{jobName}")
     public Map<String, Object> remove(@PathVariable String jobName) throws Exception {
-        JobKey jobKey = JobKey.jobKey(jobName, Scheduler.DEFAULT_GROUP);
-        TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
-        if (scheduler.checkExists(jobKey) || scheduler.checkExists(triggerKey)) {
+        if (checkExists(jobName)) {
+            TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
             scheduler.pauseTrigger(triggerKey);
             scheduler.unscheduleJob(triggerKey);
 
@@ -94,15 +89,23 @@ public class QuartzController implements QuartzApi {
     @Override
     @GetMapping("/exists/{jobName}")
     public Map<String, Object> exists(@PathVariable String jobName) throws Exception {
-        boolean flag = true;
+        return response(checkExists(jobName));
+    }
+
+    /**
+     * 检查任务是否存在
+     *
+     * @param jobName 任务名称
+     * @return
+     * @throws SchedulerException
+     */
+    private boolean checkExists(String jobName) throws SchedulerException {
         JobKey jobKey = JobKey.jobKey(jobName, Scheduler.DEFAULT_GROUP);
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName, Scheduler.DEFAULT_GROUP);
         if (!(scheduler.checkExists(jobKey) || scheduler.checkExists(triggerKey))) {
-            flag = false;
-
-            log.info("exists job: {}", jobName);
+            return false;
         }
-        return response(flag);
+        return true;
     }
 
     /**
