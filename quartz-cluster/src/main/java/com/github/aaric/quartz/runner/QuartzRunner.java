@@ -4,8 +4,6 @@ import com.github.aaric.quartz.quartz.job.ClusterJob;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
