@@ -11,7 +11,7 @@
 
 |No.|Version|Remark|
 |:-:|:-----:|------|
-|1|`0.1.0-SNAPSHOT`|*Base Usage*|
+|1|`0.1.0-SNAPSHOT`|*base config*|
 |2|`0.2.0-SNAPSHOT`|*jdbc config with quartz.properties*|
 |3|`0.2.1-SNAPSHOT`|*jdbc config with spring bean*|
 
@@ -20,4 +20,4 @@
 
 > Boot run and browse with [swagger ui](http://localhost:8080/doc.html).
 
-![api_demo.png](https://github.com/aaric/quartz-achieve/blob/dev-aaric/docs/images/api_demo.png)
+![api_demo.png](https://github.com/aaric/quartz-achieve/blob/master/docs/images/api_demo.png)
