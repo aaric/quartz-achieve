@@ -11,7 +11,7 @@
 
 |No.|Version|Remark|
 |:-:|:-----:|------|
-|1|`0.1.0-SNAPSHOT`|*base config*|
+|1|`0.1.0-SNAPSHOT`|*simple usage by junit*|
 |2|`0.2.0-SNAPSHOT`|*jdbc config with quartz.properties*|
 |3|`0.2.1-SNAPSHOT`|*jdbc config with spring bean*|
 
