@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -29,10 +30,11 @@ public class QuartzConfig {
     }
 
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean(CustomJobFactory customJobFactory) throws IOException {
+    public SchedulerFactoryBean schedulerFactoryBean(CustomJobFactory customJobFactory, DataSource dataSource) throws IOException {
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         schedulerFactoryBean.setQuartzProperties(quartzProperties());
         schedulerFactoryBean.setJobFactory(customJobFactory);
+        schedulerFactoryBean.setDataSource(dataSource);
         return schedulerFactoryBean;
     }
 
