@@ -13,3 +13,7 @@ dependencies {
 
     implementation "org.quartz-scheduler:quartz"
 }
+
+bootJar {
+    exclude "**/**-dev.yml"
+}

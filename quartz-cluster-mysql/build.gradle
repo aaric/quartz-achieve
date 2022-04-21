@@ -18,3 +18,7 @@ dependencies {
     implementation "com.zaxxer:HikariCP"
 //    implementation "com.mchange:c3p0"
 }
+
+bootJar {
+    exclude "**/**-dev.yml"
+}
