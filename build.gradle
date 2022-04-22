@@ -1,18 +1,17 @@
 plugins {
     id "java"
-    id "io.freefair.lombok" version "4.1.6" apply false
-    id "io.spring.dependency-management" version "1.0.10.RELEASE" apply false
-    id "org.springframework.boot" version "2.2.5.RELEASE" apply false
+    id "io.freefair.lombok" version "6.4.3" apply false
+    id "io.spring.dependency-management" version "1.0.11.RELEASE" apply false
+    id "org.springframework.boot" version "2.3.12.RELEASE" apply false
 }
 
 allprojects {
     group = "com.sample"
-    version = "0.2.1-SNAPSHOT"
+    version = "0.3.0-SNAPSHOT"
 
     ext {
-        springBootVersion = "2.2.5.RELEASE"
-        springCloudVersion = "Hoxton.SR3"
-        springCloudAlibabaVersion = "2.2.1.RELEASE"
+//        springBootVersion = "2.3.12.RELEASE"
+        knife4jVersion = "3.0.3"
     }
 
     repositories {
@@ -30,15 +29,12 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    configurations {
-        developmentOnly
-        runtimeClasspath {
-            extendsFrom developmentOnly
-        }
-        /*all {
-            exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
-        }*/
-    }
+//    configurations {
+//        developmentOnly
+//        runtimeClasspath {
+//            extendsFrom developmentOnly
+//        }
+//    }
 
     dependencies {
         implementation "org.slf4j:slf4j-api"
@@ -50,14 +46,13 @@ subprojects {
             exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         }
 
-        developmentOnly "org.springframework.boot:spring-boot-devtools"
+//        developmentOnly "org.springframework.boot:spring-boot-devtools"
     }
 
     dependencyManagement {
         imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
-            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:$springCloudAlibabaVersion"
+//            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+            mavenBom "com.github.xiaoymin:knife4j-dependencies:$knife4jVersion"
         }
 
         dependencies {
@@ -72,8 +67,8 @@ subprojects {
             dependency "org.apache.commons:commons-io:1.3.2"
             dependency "org.apache.commons:commons-lang3:3.10"
 
-            dependency "io.springfox:springfox-swagger2:2.9.2"
-            dependency "com.github.xiaoymin:knife4j-spring-boot-starter:2.0.4"
+//            dependency "io.springfox:springfox-swagger2:2.9.2"
+//            dependency "com.github.xiaoymin:knife4j-spring-boot-starter:2.0.4"
 
             // quartz-2.3.0-distribution.tar.gz\quartz-2.3.0-SNAPSHOT\src\org\quartz\impl\jdbcjobstore
 //            dependency "org.quartz-scheduler:quartz:2.3.2"
@@ -124,11 +119,14 @@ subprojects {
         def subProjectPath = project.projectDir
         if (null != subProjectPath) {
             subProjectPath.list().each { filename ->
-                if (filename.endsWith(".log")) {
-                    def logFile = new File(subProjectPath, filename)
-                    if (logFile.exists()) {
-                        logFile.delete()
+                if (filename.endsWith(".log") || filename.equalsIgnoreCase("logs")) {
+                    def subPath = new File(subProjectPath, filename)
+                    if (subPath.isDirectory()) {
+                        for (File leafFile : subPath.listFiles()) {
+                            leafFile.delete()
+                        }
                     }
+                    subPath.delete()
                 }
             }
         }

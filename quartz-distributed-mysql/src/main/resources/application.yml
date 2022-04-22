@@ -23,19 +23,22 @@ logging:
         web: ERROR
       hibernate: INFO
     com:
-      github: DEBUG
+      github: INFO
   file:
     path: ${LOGGING_FILE_PATH:./}
     name: output.log
-    max-size: ${LOGGING_FILE_MAX_SIZE:20MB}
-    max-history: ${LOGGING_FILE_MAX_HISTORY:100}
+    max-size: ${LOGGING_FILE_MAX_SIZE:500MB}
+    max-history: ${LOGGING_FILE_MAX_HISTORY:7}
+    total-size-cap: ${LOGGING_FILE_TOTAL_SIZE:1500MB}
+  pattern:
+    rolling-file-name: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.log"
 
 # Spring settings
 spring:
   profiles:
     active: dev
   application:
-    name: quartz-cluster
+    name: quartz-distributed-mysql
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/testdb?useSSL=false&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull
     username: testdb

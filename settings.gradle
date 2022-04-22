@@ -1,4 +1,10 @@
-include "quartz-simple"
-include "quartz-cluster"
+pluginManagement {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
 
 rootProject.name = "quartz-achieve"
+
+include "quartz-simple"
+include "quartz-distributed-mysql"
