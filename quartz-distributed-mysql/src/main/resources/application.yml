@@ -38,7 +38,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: quartz-cluster-mysql
+    name: quartz-distributed-mysql
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/testdb?useSSL=false&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull
     username: testdb

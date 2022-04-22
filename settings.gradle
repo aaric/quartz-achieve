@@ -7,4 +7,4 @@ pluginManagement {
 rootProject.name = "quartz-achieve"
 
 include "quartz-simple"
-include "quartz-cluster-mysql"
+include "quartz-distributed-mysql"
