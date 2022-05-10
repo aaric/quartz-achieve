@@ -46,6 +46,7 @@ public class LambdaTests {
             return rtnIdx;
         }
 
+        @Deprecated
         public static int tagsSort(UserVo o1, UserVo o2) {
             return tagsIdx(o1) - tagsIdx(o2);
         }
@@ -92,7 +93,8 @@ public class LambdaTests {
                 .filter(o -> null != o.getId() && null != o.getName())
 //                .sorted(Comparator.comparing(UserVo::getAge).thenComparing(UserVo::getName))
                 // age -> tags(GOOD, NICE, BEST)
-                .sorted(Comparator.comparing(UserVo::getAge).thenComparing((o1, o2) -> UserVo.tagsSort(o1, o2)))
+//                .sorted(Comparator.comparing(UserVo::getAge).thenComparing((o1, o2) -> UserVo.tagsIdx(o1) - UserVo.tagsIdx(o2)))
+                .sorted(Comparator.comparing(UserVo::getAge).thenComparing(UserVo::tagsIdx))
                 .forEach(o -> log.info("{} - {}, {}, {}", o.getId(), o.getAge(), o.getTags(), o.getName()));
     }
 }
