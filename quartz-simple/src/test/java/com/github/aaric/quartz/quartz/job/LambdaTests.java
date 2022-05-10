@@ -97,4 +97,20 @@ public class LambdaTests {
                 .sorted(Comparator.comparing(UserVo::getAge).thenComparing(UserVo::tagsIdx))
                 .forEach(o -> log.info("{} - {}, {}, {}", o.getId(), o.getAge(), o.getTags(), o.getName()));
     }
+
+    @Test
+    public void testList2New() {
+        List<UserVo> collect = userVoList.stream()
+                .filter(o -> null != o.getId() && null != o.getName())
+                .collect(Collectors.toList());
+
+        List<UserVo> collect1 = collect.stream().filter(o -> 24 == o.getAge()).collect(Collectors.toList());
+        List<UserVo> collect2 = collect.stream().filter(o -> 24 != o.getAge()).collect(Collectors.toList());
+
+        List<UserVo> collect3 = new ArrayList<>();
+        collect3.addAll(collect1);
+        collect3.addAll(collect2);
+
+        collect3.forEach(o -> log.info("{} - {}, {}, {}", o.getId(), o.getAge(), o.getTags(), o.getName()));
+    }
 }
