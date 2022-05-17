@@ -8,6 +8,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit;
 
 /**
  * NewTimeTests
@@ -46,23 +47,38 @@ public class NewTimeTests {
 
     @Test
     public void testTime() {
-        LocalTime time = LocalTime.now();
-        time = time.with(ChronoField.SECOND_OF_MINUTE, 30).withSecond(15);
-        log.info("{}", time);
-        log.info("{}:{}:{}", time.getHour(), time.getMinute(), time.getSecond());
-        log.info("{}:{}:{}.{}", time.get(ChronoField.HOUR_OF_DAY), time.get(ChronoField.MINUTE_OF_HOUR),
-                time.get(ChronoField.SECOND_OF_MINUTE), time.get(ChronoField.MILLI_OF_SECOND));
-        time = LocalTime.parse("12:00:00", DateTimeFormatter.ofPattern("HH:mm:ss"));
-        log.info("{}", time);
-        log.info("{}", time.format(DateTimeFormatter.ofPattern("HH:mm:ss.S")));
+        Assertions.assertDoesNotThrow(() -> {
+            LocalTime time = LocalTime.now();
+            time = time.with(ChronoField.SECOND_OF_MINUTE, 30).withSecond(15);
+            log.info("{}", time);
+            log.info("{}:{}:{}", time.getHour(), time.getMinute(), time.getSecond());
+            log.info("{}:{}:{}.{}", time.get(ChronoField.HOUR_OF_DAY), time.get(ChronoField.MINUTE_OF_HOUR),
+                    time.get(ChronoField.SECOND_OF_MINUTE), time.get(ChronoField.MILLI_OF_SECOND));
+            time = LocalTime.parse("12:00:00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+            log.info("{}", time);
+            log.info("{}", time.format(DateTimeFormatter.ofPattern("HH:mm:ss.S")));
+        });
     }
 
     @Test
     public void testDateTime() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        log.info("{}", dateTime.truncatedTo(ChronoUnit.DAYS));
-        dateTime = LocalDateTime.parse("2022-06-01 12:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        log.info("{}", dateTime);
-        log.info("{}", dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")));
+        Assertions.assertDoesNotThrow(() -> {
+            LocalDateTime dateTime = LocalDateTime.now();
+            log.info("{}", dateTime.truncatedTo(ChronoUnit.DAYS));
+            dateTime = LocalDateTime.parse("2022-06-01 12:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            log.info("{}", dateTime);
+            log.info("{}", dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")));
+        });
+    }
+
+    @Test
+    public void testDuration() {
+        Assertions.assertDoesNotThrow(() -> {
+            Instant start = Instant.now();
+            TimeUnit.SECONDS.sleep(1);
+            Instant end = Instant.now();
+            Duration duration = Duration.between(start, end);
+            log.info("{}", duration.toMillis());
+        });
     }
 }
