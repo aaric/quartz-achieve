@@ -42,6 +42,7 @@ public class NewTimeTests {
             log.info("{}", date);
             date = date.plusDays(30);
             log.info("{}", date.format(DateTimeFormatter.ofPattern("MMM dd, YYYY")));
+            log.info("{}", date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
         });
     }
 
