@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 
 /**
  * NewTimeTests
@@ -59,7 +60,7 @@ public class NewTimeTests {
     @Test
     public void testDateTime() {
         LocalDateTime dateTime = LocalDateTime.now();
-        log.info("{}", dateTime);
+        log.info("{}", dateTime.truncatedTo(ChronoUnit.DAYS));
         dateTime = LocalDateTime.parse("2022-06-01 12:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         log.info("{}", dateTime);
         log.info("{}", dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")));
