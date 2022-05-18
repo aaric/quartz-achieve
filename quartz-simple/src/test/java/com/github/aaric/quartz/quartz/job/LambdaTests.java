@@ -1,6 +1,5 @@
 package com.github.aaric.quartz.quartz.job;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +28,8 @@ public class LambdaTests {
         private List<String> petList;
 
         private Integer parentId;
-        private List<UserVo> childList;
+        private Integer level;
+        private String remark;
 
         public static int tagsIdx(UserVo o) {
             int rtnIdx = 0;
@@ -60,14 +60,14 @@ public class LambdaTests {
 
     @BeforeAll
     public static void setUp() {
-        userVoList.add(new UserVo().setId(1).setParentId(null).setName("zhangsan").setAge(18).setTags("GOOD").setPetList(Arrays.asList("cat")));
-        userVoList.add(new UserVo().setId(2).setParentId(null).setName("lisi").setAge(24).setTags("BEST").setPetList(Arrays.asList("cat", "dog")));
-        userVoList.add(new UserVo().setId(3).setParentId(1).setName("wangwu").setAge(24).setTags("GOOD").setPetList(Arrays.asList("bird")));
-        userVoList.add(new UserVo().setId(4).setParentId(2).setName("zhaoliu").setAge(26).setTags("GOOD").setPetList(Arrays.asList("dog")));
-        userVoList.add(new UserVo().setId(5).setParentId(2).setName("tianqi").setAge(25).setTags("GOOD").setPetList(Arrays.asList("dog", "bird")));
-        userVoList.add(new UserVo().setId(5).setParentId(3).setName("tianqi2").setAge(24).setTags("NICE").setPetList(Arrays.asList("cat")));
-        userVoList.add(new UserVo().setId(6).setParentId(5).setName(null).setAge(22).setTags("GOOD").setPetList(Arrays.asList("dog")));
-        userVoList.add(new UserVo().setId(null).setName("null").setAge(22).setTags("GOOD").setPetList(Arrays.asList("bird")));
+        userVoList.add(new UserVo().setId(1).setParentId(null).setLevel(0).setName("zhangsan").setAge(18).setTags("GOOD").setPetList(Arrays.asList("cat")));
+        userVoList.add(new UserVo().setId(2).setParentId(null).setLevel(0).setName("lisi").setAge(24).setTags("BEST").setPetList(Arrays.asList("cat", "dog")));
+        userVoList.add(new UserVo().setId(3).setParentId(1).setLevel(1).setName("wangwu").setAge(24).setTags("GOOD").setPetList(Arrays.asList("bird")));
+        userVoList.add(new UserVo().setId(4).setParentId(2).setLevel(1).setName("zhaoliu").setAge(26).setTags("GOOD").setPetList(Arrays.asList("dog")));
+        userVoList.add(new UserVo().setId(5).setParentId(2).setLevel(1).setName("tianqi").setAge(25).setTags("GOOD").setPetList(Arrays.asList("dog", "bird")));
+        userVoList.add(new UserVo().setId(5).setParentId(3).setLevel(2).setName("tianqi2").setAge(24).setTags("NICE").setPetList(Arrays.asList("cat")));
+        userVoList.add(new UserVo().setId(6).setParentId(5).setLevel(3).setName(null).setAge(22).setTags("GOOD").setPetList(Arrays.asList("dog")));
+        userVoList.add(new UserVo().setId(null).setParentId(null).setLevel(0).setName("null").setAge(22).setTags("GOOD").setPetList(Arrays.asList("bird")));
     }
 
     @Test
@@ -120,29 +120,20 @@ public class LambdaTests {
 
     @Test
     public void testList2Tree() throws Exception {
-        Integer nullValue = 0;
-        userVoList = userVoList.stream()
+        Map<Integer, UserVo> collectMap = userVoList.stream()
+                .filter(o -> null != o.getId())
+                .collect(Collectors.toMap(o -> o.getId(), o -> o, (o1, o2) -> o1));
+        List<UserVo> collectList = userVoList.stream()
+                .filter(o -> null != o.getId())
+                .sorted(Comparator.comparing(UserVo::getLevel))
                 .map(o -> {
                     if (null == o.getParentId()) {
-                        o.setParentId(nullValue);
+                        o.setRemark("root --> " + o.getLevel());
+                    } else {
+                        o.setRemark(collectMap.get(o.getParentId()).getRemark() + " --> " + o.getLevel());
                     }
                     return o;
-                })
-                .collect(Collectors.toList());
-        Map<Integer, List<UserVo>> collectMap = userVoList.stream()
-                .collect(Collectors.groupingBy(UserVo::getParentId));
-        userVoList.forEach(o -> {
-            if (null == o.getChildList()) {
-                o.setChildList(new ArrayList<>());
-            }
-            if (null != collectMap && null != collectMap.get(o.getId())) {
-                o.getChildList().addAll(collectMap.get(o.getId()));
-            }
-
-        });
-        List<UserVo> treeList = userVoList.stream()
-                .filter(o -> nullValue == o.getParentId())
-                .collect(Collectors.toList());
-        System.err.println(new ObjectMapper().writeValueAsString(treeList));
+                }).collect(Collectors.toList());
+        collectList.forEach(System.err::println);
     }
 }
