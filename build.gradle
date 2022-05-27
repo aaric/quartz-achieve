@@ -46,6 +46,9 @@ subprojects {
             exclude group: "org.junit.vintage", module: "junit-vintage-engine"
         }
 
+//        testImplementation "org.openjdk.jmh:jmh-core:1.35"
+//        testImplementation "org.openjdk.jmh:jmh-generator-annprocess:1.35"
+
 //        developmentOnly "org.springframework.boot:spring-boot-devtools"
     }
 
@@ -78,6 +81,9 @@ subprojects {
             dependency "mysql:mysql-connector-java:5.1.49"
             dependency "com.zaxxer:HikariCP:3.4.5"
 //            dependency "com.mchange:c3p0:0.9.5.5"
+
+            dependency "org.openjdk.jmh:jmh-core:1.35"
+            dependency "org.openjdk.jmh:jmh-generator-annprocess:1.35"
         }
     }
 
